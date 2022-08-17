@@ -1,0 +1,26 @@
+{
+  "name": "demo-sel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 10000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "geckodriver": "^3.0.2",
+    "selenium-webdriver": "^4.4.0"
+  },
+  "devDependencies": {
+    "@wdio/cli": "^7.20.9",
+    "@wdio/local-runner": "^7.20.9",
+    "@wdio/mocha-framework": "^7.20.7",
+    "@wdio/spec-reporter": "^7.20.8",
+    "chai": "^4.3.6",
+    "chromedriver": "^104.0.0",
+    "mocha": "^10.0.0",
+    "wdio-chromedriver-service": "^7.3.2"
+  }
+}
