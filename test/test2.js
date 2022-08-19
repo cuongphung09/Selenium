@@ -8,6 +8,17 @@ var assert = require("chai").assert;
 describe("Home(not logged in)", function () {
   this.timeout(0);
   let driver;
+  function goToMint() {
+    driver.get(setting.mkpURL);
+    var mintClick = driver
+      .findElement(
+        By.xpath(
+          "(//span[@class='cursor-pointer px-3 md:px-6 pb-2 pt-2 text-tiny rounded-full truncate font-PS2P w-1/2 text-center border-8 border-solid border-none outline-none relative z-[2] text-white uppercase font-2p-12 tab-title'])[1]"
+        )
+      )
+      .click();
+    driver.sleep(2000);
+  }
   before(async () => {
     const chromeOpts = [
       "--disable-dev-shm-usage",
@@ -109,7 +120,7 @@ describe("Home(not logged in)", function () {
   //   } finally {
   //   }
   // });
-  // it("check sort by", async function () {
+  // it("should have sort by options", async function () {
   //   try {
   //     await driver.get(setting.mkpURL);
   //     var sortByClick = await driver
@@ -151,7 +162,7 @@ describe("Home(not logged in)", function () {
   //   } finally {
   //   }
   // });
-  // it("check package", async function () {
+  // it("should have package screen", async function () {
   //   try {
   //     await driver.get(setting.mkpURL);
   //     var packageClick = await driver
@@ -171,7 +182,7 @@ describe("Home(not logged in)", function () {
   //   } finally {
   //   }
   // });
-  // it("check rent", async function () {
+  // it("should have rent screen", async function () {
   //   try {
   //     await driver.get(setting.mkpURL);
   //     var packageClick = await driver
@@ -187,26 +198,86 @@ describe("Home(not logged in)", function () {
   //   } finally {
   //   }
   // });
-  it("check rarity", async function(){
-    try{
-      await driver.get(setting.mkpURL);
-      await driver.sleep(2000);
-      await driver.findElement(By.xpath("(//label[@for='COMMON'])[1]")).click();
-      await driver.sleep(2000);
-      var common = await driver.findElement(By.xpath("(//img[@alt='Common'])[1]")).getTagName();
-      assert.equal(common,"img");
-      // await driver.findElement(By.xpath("(//label[@for='LEGEND'])[1]")).click();
-      // await driver.findElement(By.xpath("(//label[@for='EXPANSION'])[1]")).click();
-      // await driver.findElement(By.xpath("(//label[@for='7,8,9'])[1]")).click();
-      // await driver.findElement(By.xpath("(//label[@for='4,5,6'])[1]")).click();
-      // await driver.findElement(By.xpath("(//label[@for='1,2,3'])[1]")).click();
-      // await driver.findElement(By.xpath("(//label[@for='0'])[1]")).click();
-      
-    }
-    finally{
+  // it("should have common players", async function () {
+  //   try {
+  //     await driver.get(setting.mkpURL);
+  //     await driver.sleep(1000);
+  //     await driver.findElement(By.xpath("(//label[@for='COMMON'])[1]")).click();
+  //     await driver.sleep(1000);
+  //     let common;
+  //     try {
+  //       common = await driver
+  //       .findElement(By.xpath("(//img[@alt='Common'])[1]"))
+  //       .getAttribute("alt");
+  //     } catch (error) {
+  //       common = "0 Player"
+  //     }
+  //     assert.equal(common, "Common","no Common players");
 
+  //     // await driver.findElement(By.xpath("(//label[@for='LEGEND'])[1]")).click();
+  //     // await driver.findElement(By.xpath("(//label[@for='EXPANSION'])[1]")).click();
+  //     // await driver.findElement(By.xpath("(//label[@for='7,8,9'])[1]")).click();
+  //     // await driver.findElement(By.xpath("(//label[@for='4,5,6'])[1]")).click();
+  //     // await driver.findElement(By.xpath("(//label[@for='1,2,3'])[1]")).click();
+  //     // await driver.findElement(By.xpath("(//label[@for='0'])[1]")).click();
+  //   } finally {
+  //   }
+  // });
+  // it("should have legend players", async function () {
+  //   try {
+  //     await goToMint();
+  //     await driver.sleep(3000);
+  //     await driver.findElement(By.xpath("(//label[@for='LEGEND'])[1]")).click();
+  //     await driver.sleep(2000);
+  //     var legend
+  //     try {
+  //       legend = await driver
+  //       .findElement(By.xpath("(//img[@alt='Legend'])[1]"))
+  //       .getAttribute("alt");
+  //     } catch (error) {
+  //       legend = "0 Player"
+  //     }
+  //     console.log(legend);
+  //     assert.equal(legend, "Legend", "no Legend players");
+  //   } finally {
+  //   }
+  // });
+  // it("should have expansion players", async function () {
+  //   try {
+  //     await goToMint()
+  //     await driver.sleep(3000);
+  //     await driver.findElement(By.xpath("(//label[@for='EXPANSION'])[1]")).click();
+  //     await driver.sleep(1000);
+  //     let expansion;
+  //     try {
+  //       expansion = await driver
+  //       .findElement(By.xpath("(//img[@alt='Expansion'])[1]"))
+  //       .getAttribute("alt");
+  //     } catch (error) {
+  //       expansion = "0 Player"
+  //     }
+  //     assert.equal(expansion, "Expansion","no Expansion players");
+  //   } finally {
+  //   }
+  // });
+  it("should have forward players", async function () {
+    try {
+      await driver.get(setting.mkpURL);
+      await driver.sleep(1000);
+      await driver.findElement(By.xpath("(//label[@for='7,8,9'])[1]")).click();
+      await driver.sleep(1000);
+      let fw;
+      try {
+        fw = await driver
+          .findElement(By.className("font-karma-12 float-right"))
+          .getText();
+      } catch (error) {
+        fw = "0 FW";
+      }
+      assert.equal(fw, "FW");
+    } finally {
     }
-  })
+  });
   after(async () => {
     await driver.close();
   });
